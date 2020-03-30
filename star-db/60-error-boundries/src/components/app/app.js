@@ -4,10 +4,13 @@ import Header from "../header";
 import RandomPlanet from "../random-planet";
 import ErrorIndicator from "../error-indicator";
 import ItemDetails, { Record } from "../item-details/item-details";
+import ItemList from "../item-list";
 import SwapiService from "../../services/swapi-service";
+
 
 import "./app.css";
 import Row from "../row/row";
+import { PersonList, StarshipList, PlanetList, PersonDetails, StarshipDetails, PlanetDetails } from "../sw-components";
 
 export default class App extends Component {
   state = {
@@ -40,7 +43,9 @@ export default class App extends Component {
       getPerson,
       getStarship,
       getPersonImage,
-      getStarshipImage
+      getStarshipImage,
+      getAllPeople,
+      getAllPlanets
     } = this.swapiService;
 
     const personDetails = (
@@ -65,6 +70,29 @@ export default class App extends Component {
       <div className="stardb-app">
         <Header />
         <Row left={personDetails} right={starshipDetails}></Row>
+
+        <PersonDetails itemId={11} />
+        <PlanetDetails itemId={5} />
+        <StarshipDetails itemId={9} />
+
+        <PersonList>
+          {({ name }) => <span>{name}</span>}
+        </PersonList>
+
+        <StarshipList>
+          {({ name }) => <span>{name}</span>}
+        </StarshipList>
+
+        <PlanetList>
+          {({ name }) => <span>{name}</span>}
+        </PlanetList>
+
+        {/* <ItemList
+          getData={getAllPlanets}>
+
+          {({ name }) => <span>{name}</span>}
+        </ItemList>
+
         {/* {planet}
 
         <div className="row mb2 button-row">
