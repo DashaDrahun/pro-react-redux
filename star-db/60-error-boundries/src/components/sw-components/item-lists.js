@@ -5,20 +5,29 @@ import ItemList from "../item-list";
 
 const swapiService = new SwapiService();
 
-const {
-    getAllPeople,
-    getAllPlanets,
-    getAllStarships
-} = swapiService;
+const { getAllPeople, getAllPlanets, getAllStarships } = swapiService;
 
-const PersonList = withData(ItemList, getAllPeople);
+const withChildFunction = (Wrapped, fn) => {
+  return props => {
+    return <Wrapped {...props}>{fn}</Wrapped>;
+  };
+};
 
-const PlanetList = withData(ItemList, getAllPlanets)();
+const renderName = ({ name }) => <span>{name}</span>;
 
-const StarshipList = withData(ItemList, getAllStarships);
+const PersonList = withData(
+  withChildFunction(ItemList, renderName),
+  getAllPeople
+);
 
-export {
-    PersonList,
-    PlanetList,
-    StarshipList
-}
+const PlanetList = withData(
+  withChildFunction(ItemList, renderName),
+  getAllPlanets
+);
+
+const StarshipList = withData(
+  withChildFunction(ItemList, renderName),
+  getAllStarships
+);
+
+export { PersonList, PlanetList, StarshipList };

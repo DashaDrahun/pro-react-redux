@@ -15,7 +15,6 @@ const Record = ({ item, field, label }) => {
 export { Record };
 
 export default class ItemDetails extends Component {
-
   state = {
     item: null,
     image: null

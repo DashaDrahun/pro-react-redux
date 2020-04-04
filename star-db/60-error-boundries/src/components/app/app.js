@@ -6,11 +6,14 @@ import ErrorIndicator from "../error-indicator";
 import ItemDetails, { Record } from "../item-details/item-details";
 import ItemList from "../item-list";
 import SwapiService from "../../services/swapi-service";
-
+import { SwapiServiceProvider } from "../swapi-service-context/swapi-service-context";
+import PlanetDetails from "../sw-components/planet-details";
+import StarshipDetails from "../sw-components/starship-details";
+import PersonDetails from "../sw-components/person-details";
 
 import "./app.css";
 import Row from "../row/row";
-import { PersonList, StarshipList, PlanetList, PersonDetails, StarshipDetails, PlanetDetails } from "../sw-components";
+import { PersonList, StarshipList, PlanetList } from "../sw-components";
 
 export default class App extends Component {
   state = {
@@ -68,44 +71,20 @@ export default class App extends Component {
 
     return (
       <div className="stardb-app">
-        <Header />
-        <Row left={personDetails} right={starshipDetails}></Row>
+        <SwapiServiceProvider value={this.swapiService}>
+          <Header />
+          <Row left={personDetails} right={starshipDetails}></Row>
 
-        <PersonDetails itemId={11} />
-        <PlanetDetails itemId={5} />
-        <StarshipDetails itemId={9} />
+          <PersonDetails itemId={11} />
+          <PlanetDetails itemId={5} />
+          <StarshipDetails itemId={9} />
 
-        <PersonList>
-          {({ name }) => <span>{name}</span>}
-        </PersonList>
+          <PersonList />
 
-        <StarshipList>
-          {({ name }) => <span>{name}</span>}
-        </StarshipList>
+          <StarshipList />
 
-        <PlanetList>
-          {({ name }) => <span>{name}</span>}
-        </PlanetList>
-
-        {/* <ItemList
-          getData={getAllPlanets}>
-
-          {({ name }) => <span>{name}</span>}
-        </ItemList>
-
-        {/* {planet}
-
-        <div className="row mb2 button-row">
-          <button
-            className="toggle-planet btn btn-warning btn-lg"
-            onClick={this.toggleRandomPlanet}
-          >
-            Toggle Random Planet
-          </button>
-          <ErrorButton />
-        </div>
-
-        <PeoplePage /> */}
+          <PlanetList />
+        </SwapiServiceProvider>
       </div>
     );
   }
